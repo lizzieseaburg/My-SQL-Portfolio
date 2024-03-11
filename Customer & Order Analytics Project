@@ -1,0 +1,62 @@
+#In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customer and order data. 
+
+#1 How many orders were placed in January?
+SELECT COUNT(DISTINCT orderid)
+FROM BIT_DB.JanSales
+WHERE 
+  length(orderid) = 6 
+  AND orderid <> 'Order ID'
+
+#2 How many of those orders were for an iPhone?
+SELECT COUNT(DISTINCT orderid)
+FROM BIT_DB.JanSales
+WHERE 
+  product = 'iPhone'
+  AND length(orderid) = 6 
+  AND orderid <> 'Order ID'
+
+#3 Find all the account numbers for customers who placed an order in February
+SELECT 
+DISTINCT cust.acctnum
+FROM customers as cust
+JOIN FebSales as feb
+  ON cust.order_id = feb.orderID
+WHERE 
+  length(orderid) = 6 
+  AND orderid <> 'Order ID'
+
+#4 Which product was the cheapest one sold in January and what was the price?
+SELECT
+DISTINCT product,
+price
+FROM JanSales
+ORDER BY price asc
+LIMIT 1
+
+# 4.b to double check my work and make sure there weren't other items with that price 
+SELECT
+DISTINCT product,
+price
+FROM JanSales
+WHERE price <=2.99
+
+#5 What is the total revenue for each product sold in January?
+SELECT
+product,
+SUM(quantity)*price as total_rev
+FROM JanSales
+WHERE 
+  length(orderID) = 6
+  AND orderID <> 'Order ID'
+GROUP BY product
+
+#6 Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
+SELECT
+product,
+SUM(quantity) as quant_sold,
+SUM(quantity) * price as revenue
+FROM FebSales
+WHERE
+location = '548 Lincoln St, Seattle, WA 98101'
+GROUP BY product
+
