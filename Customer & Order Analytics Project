@@ -60,3 +60,11 @@ WHERE
 location = '548 Lincoln St, Seattle, WA 98101'
 GROUP BY product
 
+#7 How many of each product were sold in Los Angeles in the month of February
+SELECT 
+DISTINCT product,
+SUM(quantity) as total_sold
+FROM FebSales
+WHERE 
+  location like '%Los Angeles%'
+GROUP BY product
