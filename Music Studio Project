@@ -35,12 +35,11 @@ SELECT
   E.FirstName,
   E.LastName, 
   E.Title,
-  M.FirstName AS Manager_FirstName,
-  M.LastName AS Manager_LastName
+  M.FirstName || ' ' || M.LastName AS Manager_Name
 FROM chinook.employees as E
 LEFT JOIN chinook.employees as M
   ON E.ReportsTo = M.EmployeeId
-ORDER BY Manager_LastName
+ORDER BY Manager_Name
 
 #4 - The Sales Manager wants a list of who each of how many clients each of the sales reps has supported 
 SELECT
