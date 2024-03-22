@@ -1,0 +1,54 @@
+# In this project I use a database containing 11 different tables relating to music, playlists, music sales, customers, and support rep employees
+
+# 1 - Find out how many times each track was purchased
+  SELECT
+    i.trackid,
+    t.name,
+    SUM(i.quantity) as purchases
+  FROM chinook.invoice_items AS i
+  LEFT JOIN chinook.tracks AS t
+  ON i.TrackId = t.TrackId
+  GROUP BY i.trackid
+  ORDER BY purchases desc
+
+#2 - Collect all the pop tracks, artist names and album names
+SELECT
+  t.Name as track,
+  ar.Name as artist,
+  al.Title as album_title
+
+FROM chinook.tracks as t
+LEFT JOIN chinook.albums as al
+  ON t.AlbumId = al.AlbumId
+LEFT JOIN chinook.artists as ar
+  ON al.ArtistId = ar.ArtistId
+LEFT JOIN chinook.genres as g
+  ON t.GenreId = g.GenreId
+
+WHERE g.Name = 'Pop'
+
+ORDER BY artist
+
+#3 - Performance review time is coming up, gather a list of all the employees and their managers
+
+SELECT
+  E.FirstName,
+  E.LastName, 
+  E.Title,
+  M.FirstName AS Manager_FirstName,
+  M.LastName AS Manager_LastName
+FROM chinook.employees as E
+LEFT JOIN chinook.employees as M
+  ON E.ReportsTo = M.EmployeeId
+ORDER BY Manager_LastName
+
+#4 - The Sales Manager wants a list of who each of how many clients each of the sales reps has supported 
+SELECT
+  e.FirstName,
+  e.LastName,
+  COUNT(c.customerid) as num_customers
+FROM chinook.customers AS c
+LEFT JOIN chinook.employees AS e
+  ON c.SupportRepId = e.EmployeeId
+
+GROUP BY c.SupportRepid
