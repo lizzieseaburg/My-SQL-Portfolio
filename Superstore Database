@@ -71,3 +71,11 @@ SELECT
     stock_quantity
 FROM superstore
 ORDER BY stock_quantity
+
+#Going into an appliances sale - find the item with the highest average rating to see what item to feature - the item must be over $50
+SELECT
+	item_name, 
+	price,
+	MAX(average_rating)
+FROM superstore
+WHERE category = 'Appliances' AND price >49.99;
