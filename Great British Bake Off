@@ -1,0 +1,57 @@
+For this project I received 5 csv files that I had to upload to my SQL I created tables using the following commands 
+CREATE TABLE BIT_DB.Bakers(
+season integer NOT NULL,
+baker varchar NOT NULL,
+age integer NOT NULL,
+gender varchar NOT NULL,
+image_link varchar NOT NULL
+)
+
+CREATE TABLE BIT_DB.ChallengeBakes(
+season integer,
+episode integer,
+baker varchar,
+season_episode varchar,
+signature_bake varchar,
+rank_in_technical integer,
+status varchar
+)
+
+CREATE TABLE BIT_DB.Episodes(
+airdate date,
+season integer,
+episode integer,
+theme varchar,
+signature varchar,
+signature_time integer,
+technical varchar, 
+technical_time integer,
+show_stopper varchar,
+show_stopper_time integer,
+myrating decimal (2,1),
+myviewership decimal(4,2)
+)
+
+CREATE TABLE BIT_DB.Outcomes(
+season_episode varchar,
+baker varchar,
+starbaker boolean,
+did_well boolean,
+safe boolean,
+at_risk boolean,
+eliminated boolean,
+absent boolean,
+handshake boolean
+)
+
+CREATE TABLE BIT_DB.Seasons(
+season integer,
+hosts varchar,
+judges varchar,
+network varchar,
+winner varchar,
+year integer,
+PBS_season integer,
+Netflix_collection integer,
+Roku_season integer,
+location varchar)
